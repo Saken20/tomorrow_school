@@ -1,1 +1,1 @@
-dir -ltu --ignore=".*" -p | grep -v '^\.$' | tr '\n' ',' | sed 's/,$/\n/'
+ls -ltU --time=atime --ignore=.* | awk 'NR>1 {if ($9 ~ /.+\//) print $9 "/"; else print $9;}' | paste -sd "," -
