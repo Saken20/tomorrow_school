@@ -1,1 +1,1 @@
-ls | find . -name '*.sh' | tr -d '/' -o '.sh'
+find . -name '*.sh' -exec basename {} .sh \;
