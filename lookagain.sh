@@ -1,1 +1,1 @@
-ls | find . -name '*.sh' | tr -d '.sh'
+ls | find . -name '*.sh' | tr -d '/' -o '.sh'
