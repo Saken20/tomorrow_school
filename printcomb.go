@@ -1,5 +1,7 @@
 package piscine 
+
 import "github.com/01-edu/z01"
+
 func PrintComb() {
 	isstartt := true
 	for i := '0'; i <= '9'; i++ {
