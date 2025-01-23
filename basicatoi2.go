@@ -1,6 +1,6 @@
 package piscine
 
-func BasicAtoi(s string) int {
+func BasicAtoi2(s string) int {
 	var x int = 0
 	for _, char := range s {
 		if char >= '0' && char <= '9' {
