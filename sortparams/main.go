@@ -2,8 +2,10 @@ package main
 
 import (
 	"os"
+
 	"github.com/01-edu/z01"
 )
+
 func main() {
 	var s []string
 	s = append(s, os.Args[1:]...)
@@ -12,12 +14,14 @@ func main() {
 		Print([]rune(val))
 	}
 }
+
 func Print(ans []rune) {
 	for i := 0; i < len(ans); i++ {
 		z01.PrintRune(rune(ans[i]))
 	}
 	z01.PrintRune('\n')
 }
+
 func SortIntegerTable(table []string) {
 	for i := 0; i < len(table); i++ {
 		for j := i + 1; j < len(table); j++ {
