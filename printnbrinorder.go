@@ -19,6 +19,7 @@ func PrintNbrInOrder(n int) {
 		z01.PrintRune(rune(val) + '0')
 	}
 }
+
 func SortIntegerTable(table []int) {
 	for i := 0; i < len(table); i++ {
 		for j := i + 1; j < len(table); j++ {
