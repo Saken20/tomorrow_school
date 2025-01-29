@@ -3,7 +3,7 @@ package piscine
 func NRune(s string, n int) rune {
 	if len(s) > n {
 		R := []rune(s)
-		return R[n]
+		return R[n-1]
 	} else {
 		return 0
 	}
