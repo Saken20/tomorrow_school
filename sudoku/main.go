@@ -5,34 +5,57 @@ import (
 	"os"
 )
 
-func isValid(board [9][9]byte, row, col int, num byte) bool {
-	for i := 0; i < 9; i++ {
-		if board[row][i] == num || board[i][col] == num {
-			return false
-		}
+type SudokuGrid [9][9]int
+
+func main() {
+	if len(os.Args) != 10 {
+		fmt.Println("Error")
+		return
 	}
-	startRow, startCol := (row/3)*3, (col/3)*3
-	for i := startRow; i < startRow+3; i++ {
-		for j := startCol; j < startCol+3; j++ {
-			if board[i][j] == num {
-				return false
+
+	var grid SudokuGrid
+	for i := 1; i < 10; i++ {
+		row := os.Args[i]
+		if len(row) != 9 {
+			fmt.Println("Error")
+			return
+		}
+		for j, char := range row {
+			if char == '.' {
+				grid[i-1][j] = 0
+			} else if '1' <= char && char <= '9' {
+				grid[i-1][j] = int(char - '0')
+			} else {
+				fmt.Println("Error")
+				return
 			}
 		}
 	}
-	return true
+
+	if !isValidSudoku(&grid) {
+		fmt.Println("Error")
+		return
+	}
+
+	if solveSudoku(&grid) {
+		printGrid(&grid)
+	} else {
+		fmt.Println("Error")
+	}
 }
 
-func solve(board *[9][9]byte) bool {
-	for row := 0; row < 9; row++ {
-		for col := 0; col < 9; col++ {
-			if board[row][col] == '.' {
-				for num := byte('1'); num <= byte('9'); num++ {
-					if isValid(*board, row, col, num) {
-						board[row][col] = num
-						if solve(board) {
+func solveSudoku(grid *SudokuGrid) bool {
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			if grid[i][j] == 0 {
+				for num := 1; num <= 9; num++ {
+					if isValid(grid, i, j, num) {
+						grid[i][j] = num
+						if solveSudoku(grid) {
 							return true
+						} else {
+							grid[i][j] = 0
 						}
-						board[row][col] = '.'
 					}
 				}
 				return false
@@ -42,47 +65,56 @@ func solve(board *[9][9]byte) bool {
 	return true
 }
 
-func printBoard(board [9][9]byte) {
+func isValid(grid *SudokuGrid, row, col, num int) bool {
+	for i := 0; i < 9; i++ {
+		if grid[row][i] == num {
+			return false
+		}
+	}
+
+	for i := 0; i < 9; i++ {
+		if grid[i][col] == num {
+			return false
+		}
+	}
+
+	startRow, startCol := row-row%3, col-col%3
+	for i := 0; i < 3; i++ {
+		for j := 0; j < 3; j++ {
+			if grid[i+startRow][j+startCol] == num {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
+func isValidSudoku(grid *SudokuGrid) bool {
 	for i := 0; i < 9; i++ {
 		for j := 0; j < 9; j++ {
-			fmt.Printf("%c ", board[i][j])
+			if grid[i][j] != 0 {
+				num := grid[i][j]
+				grid[i][j] = 0
+				if !isValid(grid, i, j, num) {
+					return false
+				}
+				grid[i][j] = num
+			}
+		}
+	}
+	return true
+}
+
+func printGrid(grid *SudokuGrid) {
+	for i := 0; i < 9; i++ {
+		for j := 0; j < 9; j++ {
+			if j != 8 {
+				fmt.Printf("%d ", grid[i][j])
+			} else {
+				fmt.Printf("%d", grid[i][j])
+			}
 		}
 		fmt.Println()
-	}
-}
-
-func parseInput(args []string) ([9][9]byte, error) {
-	var board [9][9]byte
-	if len(args) != 9 {
-		return board, fmt.Errorf("Invalid input: must provide 9 rows")
-	}
-	for i, row := range args {
-		if len(row) != 9 {
-			return board, fmt.Errorf("Invalid row length: must have 9 characters")
-		}
-		for j, c := range row {
-			if c != '.' && (c < '1' || c > '9') {
-				return board, fmt.Errorf("Invalid character: %c", c)
-			}
-			board[i][j] = byte(c)
-		}
-	}
-	return board, nil
-}
-
-func main() {
-	if len(os.Args) != 10 {
-		fmt.Println("Error: provide exactly 9 rows of Sudoku")
-		return
-	}
-	board, err := parseInput(os.Args[1:])
-	if err != nil {
-		fmt.Println(err)
-		return
-	}
-	if solve(&board) {
-		printBoard(board)
-	} else {
-		fmt.Println("Error: no solution found")
 	}
 }
