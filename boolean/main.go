@@ -1,10 +1,10 @@
 package main
 
 import (
-	"github.com/01-edu/z01"
 	"os"
-)
 
+	"github.com/01-edu/z01"
+)
 
 func printStr(s string) {
 	for _, r := range s {
@@ -14,13 +14,13 @@ func printStr(s string) {
 }
 
 func isEven(nbr int) bool {
-	if nbr % 2 == 0 {
+	if nbr%2 == 0 {
 		return true
-		} else {
-			return false
-		}
+	} else {
+		return false
 	}
-	
+}
+
 func main() {
 	EvenMsg := "I have an even number of arguments"
 	OddMsg := "I have an odd number of arguments"
