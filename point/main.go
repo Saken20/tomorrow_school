@@ -1,15 +1,11 @@
 package main
 
-import "github.com/01-edu/z01"
+import (
+	"github.com/01-edu/z01"
+)
 
 type point struct {
-	x int
-	y int
-}
-
-func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+	x, y int
 }
 
 func printStr(s string) {
@@ -19,30 +15,31 @@ func printStr(s string) {
 }
 
 func printInt(n int) {
-	if n == 0 {
-		z01.PrintRune('0')
-		return
+	k := '0'
+	for i := 0; i < n / 10; i++ {
+		k++
 	}
-	if n < 0 {
-		z01.PrintRune('-')
-		n = -n
-	}
-	var digits []rune
-	for n > 0 {
-		digits = append(digits, rune(n%10+'0'))
-		n /= 10
-	}
-	for i := len(digits) - 1; i >= 0; i-- {
-		z01.PrintRune(digits[i])
-	}
+	z01.PrintRune(k)
+}
+
+func setPoint(ptr *point) {
+	ptr.x = 42
+	ptr.y = 21
 }
 
 func main() {
-	points := &point{}
-	setPoint(points)
-	printStr("x = ")
-	printInt(points.x)
-	printStr(", y = ")
-	printInt(points.y)
-	z01.PrintRune('\n')
+	points := point{}
+	setPoint(&points)
+
+	s := "x = a, y = b\n"
+
+	for _, ch := range s {
+		if ch == 'a' {
+			printInt(point.x)
+		} else if ch == 'b' {
+			z01.PrintRune('b')
+		} else {
+			z01.PrintRune(ch)
+		}
+	}
 }
