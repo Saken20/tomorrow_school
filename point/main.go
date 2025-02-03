@@ -14,17 +14,6 @@ func printStr(s string) {
 	}
 }
 
-func printInt(n int) {
-	if n < 0 {
-		z01.PrintRune('-')
-		n = -n
-	}
-	if n >= 10 {
-		printInt(n / 10)
-	}
-	z01.PrintRune(rune(n%10 + '0'))
-}
-
 func setPoint(ptr *point) {
 	ptr.x = 42
 	ptr.y = 21
@@ -35,8 +24,10 @@ func main() {
 	setPoint(&points)
 
 	printStr("x = ")
-	printInt(points.x)
+	z01.PrintRune('4')
+	z01.PrintRune('2')
 	printStr(", y = ")
-	printInt(points.y)
+	z01.PrintRune('2')
+	z01.PrintRune('1')
 	z01.PrintRune('\n')
 }
