@@ -14,11 +14,11 @@ func setPoint(ptr *point) {
 }
 
 func PrintInt(n int) {
-	k := '0'
+	nb := '0'
 	for i := 0; i < n/10; i++ {
-		k++
+		nb++
 	}
-	z01.PrintRune(k)
+	z01.PrintRune(nb)
 
 	nb1 := '0'
 	for i := 0; i < n%10; i++ {
