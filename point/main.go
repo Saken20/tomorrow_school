@@ -8,23 +8,23 @@ type point struct {
 	x, y int
 }
 
-func printStr(s string) {
-	for _, r := range s {
-		z01.PrintRune(r)
-	}
+func setPoint(ptr *point) {
+	ptr.x = 42
+	ptr.y = 21
 }
 
-func printInt(n int) {
+func PrintInt(n int) {
 	k := '0'
 	for i := 0; i < n / 10; i++ {
 		k++
 	}
 	z01.PrintRune(k)
-}
 
-func setPoint(ptr *point) {
-	ptr.x = 42
-	ptr.y = 21
+	nb1 := '0'
+	for i := 0; i < n%10; i++ {
+		nb1++
+	}
+	z01.PrintRune(nb1)
 }
 
 func main() {
@@ -35,9 +35,9 @@ func main() {
 
 	for _, ch := range s {
 		if ch == 'a' {
-			printInt(point.x)
+			PrintInt(points.x)
 		} else if ch == 'b' {
-			z01.PrintRune('b')
+			PrintInt(points.y)
 		} else {
 			z01.PrintRune(ch)
 		}
