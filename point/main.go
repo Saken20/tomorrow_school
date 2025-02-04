@@ -15,7 +15,7 @@ func setPoint(ptr *point) {
 
 func PrintInt(n int) {
 	k := '0'
-	for i := 0; i < n / 10; i++ {
+	for i := 0; i < n/10; i++ {
 		k++
 	}
 	z01.PrintRune(k)
