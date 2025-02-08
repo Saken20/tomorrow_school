@@ -1,5 +1,10 @@
 package piscine
 
+import (
+	"os"
+	"github.com/01-edu/z01"
+)
+
 func Rot14(s string) string {
 	var ans []byte
 	for _, ch := range s {
