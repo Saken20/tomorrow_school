@@ -5,10 +5,10 @@ func Rot14(s string) string {
 	for _, ch := range s {
 		if ch >= 'a' && ch <= 'z' {
 			// Rotate lowercase letters
-			ch = ((ch - 'a'+14) %26) + 'a'
+			ch = ((ch - 'a' + 14) % 26) + 'a'
 		} else if ch >= 'A' && ch <= 'Z' {
 			// Rotate uppercase letters
-			ch = ((ch - 'A'+14) %26) + 'A'
+			ch = ((ch - 'A' + 14) % 26) + 'A'
 		}
 		ans = append(ans, byte(ch))
 	}
